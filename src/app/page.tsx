@@ -1,113 +1,324 @@
-import Image from "next/image";
+"use client"
+import { useState } from 'react'
+import type { ReactNode } from 'react';
+import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
+import cns from 'classnames'
+
+import ChessIcon from "../../public/icons/interests/ChessIcon";
+import SportsIcon from "../../public/icons/interests/SportsIcon";
+import MusicIcon from "../../public/icons/interests/MusicIcon";
+import SkiingIcon from "../../public/icons/interests/SkiingIcon";
+import DogsIcon from "../../public/icons/interests/DogsIcon";
+import SleepingIcon from "../../public/icons/interests/Sleeping";
+import SeeMoreArrow from "../../public/icons/interests/SeeMoreArrow";
+
+import ReactIcon from "../../public/icons/technical/ReactIcon";
+import JavascriptIcon from "../../public/icons/technical/JavascriptIcon";
+import NodeIcon from "../../public/icons/technical/NodeIcon";
+import TypescriptIcon from "../../public/icons/technical/TypescriptIcon";
+
+import ProblemSolvingIcon from "../../public/icons/soft/ProblemSolvingIcon";
+import LeadershipIcon from "../../public/icons/soft/LeadershipIcon";
+import SelfMotivatedIcon from "../../public/icons/soft/SelfMotivatedIcon";
+import CreativityIcon from "../../public/icons/soft/CreativityIcon";
+import AttentionToDetailIcon from "../../public/icons/soft/AttentionToDetailIcon";
+import PrismaIcon from "../../public/icons/technical/PrismaIcon";
+import HTMLIcon from "../../public/icons/technical/HTMLIcon";
+import CSSIcon from "../../public/icons/technical/CSSIcon";
+import GithubIcon from "../../public/icons/technical/GithubIcon";
+import TailwindIcon from "../../public/icons/technical/TailwindIcon";
+import PostgresIcon from "../../public/icons/technical/PostgresIcon";
+import GitIcon from "../../public/icons/technical/GitIcon";
+
+import EmailIcon from '../../public/icons/contact/EmailIcon';
+import LinkedInIcon from '../../public/icons/contact/LinkedInIcon';
+
+import { Projects, Modal } from "@/components";
+
+
+const besley = Besley({
+  subsets: ['latin'],
+  variable: '--font-besley',
+  weight: ["400", "700"],
+})
+
+const dm_sans = DM_Sans({
+  subsets: ['latin'],
+})
+
+const dm_serif_text = DM_Serif_Text({
+  subsets: ['latin'],
+  weight: ["400"],
+})
+
+const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState("")
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <main>
+      {/* <BreakPoints /> */}
+      <PersonalDetails />
+      <Projects setSelectedProject={setSelectedProject} />
+      <Modal
+        selectedProject={selectedProject}
+        setSelectedProject={setSelectedProject}
+      />
+      <FullWidthBackground backgroundColor='bg-[#FFF]'>
+        <Section
+          title="Technical Knowledge"
+          data={TECHNICAL_KNOWLEDGE}
+          cardType="square"
         />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </FullWidthBackground>
+      <FullWidthBackground backgroundColor='bg-[#474747]'>
+        <Section
+          titleClassName="text-[#F2F2F2]"
+          title="Soft Skills"
+          data={SOFT_SKILLS}
+          cardType="circle"
+        />
+        <Section
+          titleClassName="text-[#F2F2F2]"
+          title='Interests'
+          data={INTERESTS}
+          cardType="transparent"
+        />
+      </FullWidthBackground>
+      <ContactMe />
     </main>
   );
 }
+function BreakPoints() {
+  const [show, setShow] = useState(true)
+  return (
+    <div className='fixed z-10 pointer-events-auto'>
+      {show && (
+        <>
+          <div className='fixed left-[640px] top-0 bottom-0 w-[2px] bg-purple-500' />
+          <div className='fixed left-[768px] top-0 bottom-0 w-[2px] bg-purple-600' />
+          <div className='fixed left-[1024px] top-0 bottom-0 w-[2px] bg-purple-700' />
+          <div className='fixed left-[1280px] top-0 bottom-0 w-[2px] bg-purple-800' />
+          <div className='fixed left-[1536px] top-0 bottom-0 w-[2px] bg-purple-900' />
+        </>
+      )}
+      <button
+        className={`fixed z-50 flex justify-center items-center top-10 left-10 w-16 h-16 rounded-full bg-zinc-800 text-zinc-100 text-lg sm:after:content-['sm'] md:after:content-['md'] lg:after:content-['lg'] xl:after:content-['xl'] 2xl:after:content-['2xl']`}
+        onClick={() => setShow(!show)}
+      />
+    </div>
+  )
+}
+
+function PersonalDetails() {
+  return (
+    <section className="h-[100vh] flex flex-col items-center justify-center w-full ">
+      <section className="flex flex-col max-w-[962px] w-full px-6">
+        <div>
+          <h1 className={`${besley.className} font-sans font-bold text-xl sm:text-3xl md:text-4xl`}>Stephen Hackett-Delaney</h1>
+          <p className={`${dm_sans.className} text-xs sm:text-sm text-[#707070] mt-2`}>Permanent resident, Vancouver, BC</p>
+        </div>
+        <h2 className={`${besley.className} font-sans font-light text-lg sm:text-2xl mt-[36px]`}>Software Engineer</h2>
+        <div className="mt-[26px]">
+          <h2 className={`${besley.className} font-sans text-lg sm:text-2xl`}>Comedia Design</h2>
+          <p className={`${dm_sans.className} text-xs sm:text-sm text-[#707070]`}>Jan 2020 - Present</p>
+        </div>
+        <p className={`${besley.className} sm:max-w-[480px] text-sm leading-[26px] sm:text-[18px] sm:leading-[30px] mt-[56px]`}>5+ years experience building production-ready web applications. Passion for creating user-centric experiences, performance optimization and delivering in a timely manner. Thrive in environments with inter-departmental collaboration. Comfortable leading or assisting projects. Highly proficient in React, JavaScript, Node.js, Prisma & TailwindCSS.</p>
+        <SeeMoreArrow className="mt-[100px]" />
+      </section>
+    </section>
+  )
+}
+
+function FullWidthBackground({ backgroundColor = "bg-[#F8F8F8]", children }: { backgroundColor: string, children: ReactNode }) {
+  return (
+    <section className={cns(`${backgroundColor} flex flex-col gap-[120px] py-[120px]`)}>{children}</section>
+  )
+}
+
+function ContactMe() {
+  return (
+    <section className="py-[72px] px-6 lg:px-0">
+      <section className="flex flex-col max-w-[962px] m-auto">
+        <h2 className={`${besley.className} font-sans font-bold text-[26px] mb-[36px]`}>Contact Me</h2>
+        <section className="flex gap-[16px]">
+          <LinkedInIcon />
+          <EmailIcon />
+        </section>
+        <p className={`${dm_sans.className} text-[12px] mt-[64px]`}>© 2024. All rights reserved</p>
+      </section>
+    </section>
+  )
+}
+
+type Values = {
+  title: string,
+  icon: any
+}
+
+function Section({ titleClassName, title, data, cardType = "square" }: { titleClassName?: string, title: string, data: any, cardType: "square" | "circle" | "transparent" }) {
+
+  const components = {
+    square: CardSquare,
+    circle: CardCircle,
+    transparent: CardTransparent
+  }
+
+  const Component = components[cardType]
+
+  return (
+    <Content title={title} titleClassName={titleClassName}>
+      {data.map((values: Values, index: number): ReactNode => (
+        <Component key={index} {...values} />
+      ))}
+    </Content>
+  )
+}
+
+function Content({ titleClassName, title, children }: { titleClassName?: string, title: string, children: ReactNode }) {
+  return (
+    <section className="flex flex-col w-full max-w-[962px] m-auto px-6 lg:px-0">
+      <h2 className={`${besley.className} font-sans font-bold text-[26px] text-left ${titleClassName}`}>{title}</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 justify-items-center gap-[64px] mt-[32px]">
+        {children}
+      </div>
+    </section>
+  )
+}
+
+function CardSquare({ title, icon: Icon }: Values) {
+  return (
+    <div className="flex flex-col gap-y-[4px] justify-center items-center">
+      <Icon />
+      <p className={`${aleo.className} text-[#474747] mt-2`}>{title}</p>
+    </div>
+  )
+}
+
+function CardTransparent({ title, icon: Icon }: Values) {
+  return (
+    <div className="flex flex-col gap-y-[4px] justify-center items-center w-[130px] h-[120px] bg-transparent border-2 rounded-2xl pt-4">
+      <Icon className="text-white" />
+      <p className={`${aleo.className} text-white mt-2`}>{title}</p>
+    </div>
+  )
+}
+
+function CardCircle({ title, icon: Icon }: Values) {
+  return (
+    <section className='flex flex-col items-center'>
+      <div className="flex justify-center items-center w-[130px] h-[130px] border-2 border-white rounded-full mb-2">
+        <Icon className="text-white" />
+      </div>
+      <p className={`${aleo.className} text-[#474747] mt-2 border-t-2 border-white w-full text-center text-white pt-2`}>{title}</p>
+    </section>
+
+  )
+}
+
+const TECHNICAL_KNOWLEDGE = [
+  {
+    title: "ReactJS",
+    icon: ReactIcon,
+  },
+  {
+    title: "React Native",
+    icon: ReactIcon,
+  },
+  {
+    title: "Javascript",
+    icon: JavascriptIcon,
+  },
+  {
+    title: "Node.js",
+    icon: NodeIcon,
+  },
+  {
+    title: "Typescript",
+    icon: TypescriptIcon,
+  },
+  {
+    title: "TailwindCSS",
+    icon: TailwindIcon,
+  },
+  {
+    title: "Prisma",
+    icon: PrismaIcon,
+  },
+  {
+    title: "PostgresSQL",
+    icon: PostgresIcon,
+  },
+  {
+    title: "HTML",
+    icon: HTMLIcon,
+  },
+  {
+    title: "CSS",
+    icon: CSSIcon,
+  },
+  {
+    title: "Github",
+    icon: GithubIcon,
+  },
+  {
+    title: "Git",
+    icon: GitIcon,
+  },
+]
+
+const SOFT_SKILLS = [
+  {
+    title: "Problem Solving",
+    icon: ProblemSolvingIcon,
+  },
+  {
+    title: "Leadership",
+    icon: LeadershipIcon,
+  },
+  {
+    title: "Creativity",
+    icon: CreativityIcon,
+  },
+  {
+    title: "Problem Solving",
+    icon: ProblemSolvingIcon,
+  },
+  {
+    title: "Self-Motivated",
+    icon: SelfMotivatedIcon,
+  },
+  {
+    title: "Attention To Detail",
+    icon: AttentionToDetailIcon,
+  },
+]
+
+
+const INTERESTS = [
+  {
+    title: "sports",
+    icon: SportsIcon,
+  },
+  {
+    title: "music",
+    icon: MusicIcon,
+  },
+  {
+    title: "chess",
+    icon: ChessIcon,
+  },
+  {
+    title: "skiing",
+    icon: SkiingIcon,
+  },
+  {
+    title: "dogs",
+    icon: DogsIcon,
+  },
+  {
+    title: "sleeping",
+    icon: SleepingIcon,
+  },
+]
