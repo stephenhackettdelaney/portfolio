@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 
 import Image from 'next/image'
@@ -9,11 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
 import cns from 'classnames'
 
-import MatchCards from '../../public/modal/psykick/MatchCards'
-import MatchCard from '../../public/modal/psykick/MatchCard'
-import Dashboard from '../../public/modal/psykick/Dashboard'
-
-import WelcomeFC from '../../public/modal/futureCards/WelcomeFC'
+import ExternalLinkIcon from '../../public/icons/ExternalLinkIcon'
 
 const besley = Besley({
     subsets: ['latin'],
@@ -33,7 +29,7 @@ const dm_serif_text = DM_Serif_Text({
 
 const aleo = Aleo({ subsets: ['latin'] })
 
-export function Modal({ selectedProject, setSelectedProject }: { selectedProject: string, setSelectedProject: Dispatch<SetStateAction<string>> }) {
+export function Modal({ selectedProject, closeModal }: { selectedProject: string, closeModal: () => void }) {
     useEffect(() => {
         // Add event listener to handle scroll behavior when modal is open
         if (selectedProject) {
@@ -46,54 +42,95 @@ export function Modal({ selectedProject, setSelectedProject }: { selectedProject
     }, [selectedProject]);
 
     return (
-        <AnimatePresence>
-            {!!selectedProject && (
-                <motion.div
-                    className='fixed top-0 left-0 w-screen h-screen bg-zinc-900/90'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    <div className='absolute top-10 bottom-10 left-[50%] -translate-x-[50%] w-full max-w-[800px] bg-white rounded-xl p-4 md:p-[44px] overflow-y-scroll space-y-8'>
-                        <CompanyDetails
-                            title={PROJECTS[`${selectedProject}`].title}
-                            description={PROJECTS[`${selectedProject}`].description}
-                            href={PROJECTS[`${selectedProject}`].href}
-                            setSelectedProject={setSelectedProject}
-                        />
-                        <ProjectContainer>
-                            {PROJECTS[`${selectedProject}`].projects.map(({ title, description, stack, images, radius }, index: number) => {
-                                return (
-                                    <section key={index}>
-                                        <ProjectDetails key={index} title={title} description={description} stack={stack} />
-                                        <ProjectSlider images={images} radius={radius} />
-                                    </section>
-                                )
-                            })}
-                        </ProjectContainer>
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+        <div className='relative'>
+            <AnimatePresence>
+                {!!selectedProject && (
+                    <motion.div
+                        className='fixed top-0 left-0 w-screen h-screen bg-zinc-900/90'
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <div className='absolute z-10 top-10 bottom-10 left-[50%] -translate-x-[50%] w-full max-w-[800px] max-h-[900px] p-4 md:p-[44px] bg-white rounded-xl overflow-y-scroll space-y-8'>
+                            <CompanyDetails
+                                closeModal={closeModal}
+                                {...PROJECTS[`${selectedProject}`]} />
+                            <ProjectContainer>
+                                {PROJECTS[`${selectedProject}`].projects.map(({ title, description, stack, images, radius }, index: number) => {
+                                    return (
+                                        <section key={index}>
+                                            <ProjectDetails key={index} title={title} description={description} stack={stack} />
+                                            <ProjectSlider images={images} radius={radius} />
+                                        </section>
+                                    )
+                                })}
+                                <footer className='flex justify-end gap-4'>
+                                    {PROJECTS[`${selectedProject}`]?.href ? (
+                                        <Link
+                                            href={PROJECTS[`${selectedProject}`]?.href!} target='_blank'
+                                            className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
+                                        >
+                                            <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-blue-500 transition duration-500 hover:border-blue-600 flex justify-center items-center gap-1">
+                                                <h2 className={`${dm_sans.className} text-sm text-blue-600 group-hover:text-black transition-color duration-500`}>Visit site</h2>
+                                            </div>
+                                            <div className="w-full h-full bg-blue-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
+                                        </Link>
+                                    ) : null}
+                                    <button
+                                        onClick={closeModal}
+                                        className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
+                                    >
+                                        <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-rose-500 transition duration-500 hover:border-rose-600 flex justify-center items-center gap-1">
+                                            <h2 className={`${dm_sans.className} text-sm text-[#F25555] group-hover:text-black transition-color duration-500`}>close</h2>
+                                        </div>
+                                        <div className="w-full h-full bg-rose-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
+                                    </button>
+                                </footer>
+                            </ProjectContainer>
+                        </div>
+                        <button onClick={closeModal} className='absolute top-0 right-0 bottom-0 left-0 cursor-zoom-out' />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     )
 }
 
-function CompanyDetails({ title, description, href, setSelectedProject }: { title: string, description: string, href?: string, setSelectedProject: Dispatch<SetStateAction<string>> }) {
+function CompanyDetails({ title, description, overview, href, closeModal }: { title: string, description: string, overview: { description: string, achievements: string[] }[], href?: string, closeModal: () => void }) {
     return (
-        <section className='flex flex-col'>
+        <header className='bg-white flex flex-col gap-4 z-50'>
             <div className='flex justify-between'>
-                <h2 className={`${dm_serif_text.className} text-[32px]`}>{title}</h2>
-                <button className={`${dm_sans.className} text-[14px] text-[#F25555]`} onClick={() => setSelectedProject("")}>Close</button>
+                <div className='flex flex-col'>
+                    <h2 className={`${dm_serif_text.className} text-[32px]`}>{title}</h2>
+                    <p className={`${dm_sans.className} text-sm text-[#555555] leading-[24px] max-w-[640px]`}>{description}</p>
+                </div>
+                <button className={`${dm_sans.className} text-sm text-[#F25555] w-14 h-14 rounded-full hover:underline`} onClick={closeModal}>Close</button>
             </div>
-            <p className={`${dm_sans.className} text-[14px] text-[#555555] leading-[24px] max-w-[640px]`}>{description}</p>
             {href && (
-                <Link href={href} target='_blank'>
-                    <div className='group hover:bg-zinc-800 group-hover:border-blue-400 inline-block border-2 border-blue-800 rounded mt-4 py-1 px-4 '>
-                        <h2 className={`${dm_sans.className} text-blue-800 text-[16px] group-hover:underline group-hover:text-blue-400`}>visit site</h2>
+                <Link
+                    href={href} target='_blank'
+                    className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
+                >
+                    <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-blue-500 transition duration-500 hover:border-blue-600 flex justify-center items-center gap-1">
+                        <h2 className={`${dm_sans.className} text-sm text-blue-600 group-hover:text-black transition-color duration-500`}>Visit site</h2>
                     </div>
+                    <div className="w-full h-full bg-blue-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
                 </Link>
             )}
-        </section>
+            <section className='flex flex-col gap-2 border-t-[12px] border-2 border-zinc-200 bg-white p-5 pt-3 rounded my-8'>
+                <h2 className={`${besley.className} text-lg`}>Overview & Achievements</h2>
+                {overview.map(({ description, achievements }, index: number) => {
+                    return (
+                        <section className='flex flex-col gap-4' key={index}>
+                            <p className={`${dm_sans.className} text-sm leading-[24px] border-b-2 py-6 pt-0 border-zinc-300`}>{description}</p>
+                            <ul className={`${dm_sans.className} flex flex-col gap-4 text-sm list-disc pt-4`}>
+                                {achievements.map((value: string, index: number) => <li key={index} className='ml-4 leading-[22px]'>{value}</li>)}
+                            </ul>
+                        </section>
+                    )
+                })}
+            </section>
+        </header>
     )
 }
 
@@ -103,10 +140,10 @@ function ProjectContainer({ children }: { children: ReactNode }): ReactNode {
     )
 }
 
-function ProjectDetails({ title, description, href, stack }: { title: string, description: string, href?: string | undefined, stack: string[] }) {
+function ProjectDetails({ title, description, stack }: { title: string, description: string, stack: string[] }) {
     return (
         <section>
-            <h2 className={`${dm_serif_text.className} text-[22px]`}>{title}</h2>
+            <h2 className={`${dm_serif_text.className} text-xl`}>{title}</h2>
             <p className={`${dm_sans.className} text-[14px] text-[#555555] leading-[24px] max-w-[640px]`}>{description}</p>
             <ul className={`${aleo.className} flex gap-x-4 text-[14px]`}>
                 {stack.map((value: string, index: number): ReactNode => {
@@ -141,11 +178,8 @@ function ProjectImage({ className = "bg-zinc-400", src, description, alt, radius
     return (
         <div className='flex flex-col gap-y-4 h-full'>
             {src.includes(".mov") ? <video src={src} playsInline loop muted autoPlay /> :
-                // <div className='w-full h-auto'>
-                //     <WelcomeFC style={{ width: '100%', height: '100%' }} />
-                // </div>
-                <div className={cns(`relative flex items-center justify-center w-[352px] h-[261px] mx-auto`, className, radius)}>
-                    <Image src={src} className='w-full rounded-xl' sizes='max-width(350px), 350px' fill={true} alt={alt} />
+                <div className={cns(`relative flex items-center justify-center w-[400px] md:w-[520px] mx-auto`, className, radius)}>
+                    <Image src={src} width={0} sizes="100vw" height={0} alt="display of winnebago products" style={{ width: '100%', height: 'auto' }} priority />
                 </div>
             }
             <p className={`${dm_sans.className} text-[14px] text-[#555555] leading-[24px] w-full text-center`}>{description}</p>
@@ -157,6 +191,10 @@ type Projects = {
     [key: string]: {
         title: string,
         description: string,
+        overview: {
+            description: string,
+            achievements: string[]
+        }[],
         href?: string,
         projects: {
             title: string,
@@ -177,10 +215,22 @@ const PROJECTS: Projects = {
     winnebago: {
         title: 'Winnebago Electric RV',
         description: 'Mobile applications for route managment, vehicle status & load tutorials',
+        overview: [
+            {
+                description: "Created three mobile applications - Aventura, Weight Distribution and Tahoe - for Winnebago Electric RV. The challenges faced included route creation, weather alerts, vehicle specific recommended routes, vehicle status and RV weight distribution tutorials.",
+                achievements: [
+                    "Provided detailed weather conditions along routes, offering users additional information to enhance safety decision-making tailored to their settings, vehicle specifications, and route progress.",
+                    "Established a user-centric environment featuring animated drawers for easy access to key features and fixed link icons for navigating deeply nested routes.",
+                    "Coordinated with design and client to rapidly build each application. Implemented app navigation, UI/UX animation, data change notifications, route screens and asset/icon management for each.",
+                    "Crafted robust solution with embedded Mapbox web-app to communicate with overlay of front-end features.",
+                    "Transformed user convenience by implementing QR code library for VIN number vehicle matching.",
+                ],
+            },
+        ],
         projects: [
             {
 
-                title: 'Aventura',
+                title: 'Aventura Project',
                 description: '',
                 stack: ['react native', 'expo', 'mapbox', 'tomorrow.io'],
                 radius: "rounded-lg",
@@ -191,7 +241,7 @@ const PROJECTS: Projects = {
                 ]
             },
             {
-                title: 'Tahoe',
+                title: 'Tahoe Project',
                 description: '',
                 stack: ['react native', 'expo'],
                 radius: "rounded-lg",
@@ -204,7 +254,7 @@ const PROJECTS: Projects = {
             },
             {
 
-                title: 'Weight Distribution',
+                title: 'Weight Distribution Project',
                 description: '',
                 stack: ['react native', 'expo'],
                 radius: "rounded-lg",
@@ -219,6 +269,18 @@ const PROJECTS: Projects = {
     futureCards: {
         title: 'Future Cards',
         description: 'AI powered re-branding web application',
+        overview: [
+            {
+                description: "Developed an AI powered re-branding web application, decreasing ideation time. Conducted team meetings, code reviews, collaborated with design and directed ticket creation/completion.",
+                achievements: [
+                    "Increased user engagement during re-branding exercises, combating prolonged inactivity by introducing informative, highlighted next step nudges.",
+                    "Outlined application’s features and capabilities, providing a graphic demonstration to new users by implementing a guided React Tour.",
+                    "Improved wait-list sign up by 35% with a highly choreographed marketing website. Worked closely with design to create a visual statement of cutting edge re-branding technology.",
+                    "Acted as liaison between multiple teams, including developers, designers and product managers to deliver cohesive solutions.",
+                    "Effectively directed numerous aspects of the project simultaneously, prioritizing tasks and meeting tight deadlines consistently.",
+                ],
+            },
+        ],
         href: "https://future.cards/",
         projects: [
             {
@@ -226,7 +288,8 @@ const PROJECTS: Projects = {
                 description: '',
                 stack: ['react', 'framer motion', 'html', 'tailwindcss'],
                 images: [
-                    { src: '/modal/futureCards/future_cards.mov', description: 'Landing page', alt: 'Landing page' },
+                    { src: '/modal/futureCards/fc_landingPage.mov', description: 'Landing page', alt: 'Landing page' },
+                    // { src: '/modal/futureCards/future_cards.mov', description: 'Landing page', alt: 'Landing page' },
                 ]
             },
             {
@@ -246,7 +309,19 @@ const PROJECTS: Projects = {
     },
     psykick: {
         title: 'Psykick',
-        description: 'A sports predictor application',
+        description: 'A sports prediction application optimized for mobile and web',
+        overview: [
+            {
+                description: "Psykick, a sports prediction startup provides a thrilling environment for sports enthusiasts. Adding significance to each outcome. Users accumulate points and compete for pole position on the leader-board.",
+                achievements: [
+                    "Designed postgresSQL database for data storage. Oversaw data migrations using Prisma.",
+                    "Devised seed data and testing files for fixture and user prediction results. Proofed application’s features and system mechanisms.",
+                    "Devised enriched user experience with a league table page -  displaying a  user’s statistics such as table position, points, wins, losses and perfects.",
+                    "Assisted lead developer with UI components, animated features and route creation.",
+                    "Implemented react query for global state managment.",
+                ]
+            }
+        ],
         href: "https://psykick.app/auth/login",
         projects: [
             {
@@ -254,7 +329,7 @@ const PROJECTS: Projects = {
                 description: '',
                 stack: ['react', 'remix.run', 'framer motion', 'tailwindcss'],
                 images: [
-                    { src: '/modal/psykick/match_1.png', description: 'Dashboard', alt: 'Dashboard' },
+                    { src: '/modal/psykick/matches_1.png', description: 'Dashboard', alt: 'Dashboard' },
                     { src: '/modal/psykick/match_2.png', description: 'Match prediction cards', alt: 'Match prediction cards' },
                     { src: '/modal/psykick/match_3.png', description: 'Match modal with game stats & player predictions', alt: 'Match modal with game stats & player predictions' },
                 ]
@@ -282,6 +357,18 @@ const PROJECTS: Projects = {
     risingTeam: {
         title: 'Rising Team',
         description: 'Mobile & web kits to equip managers to easily run awesome team development sessions',
+        overview: [
+            {
+                description: "Engineered two new management kits. Conducted code reviews, designed feature implementation, created decision/hand-off documentation, responsible for testing and debugging code.",
+                achievements: [
+                    "Facilitated cohesive communication pertaining to work culture between managers and teams by spear-heading a multi-user note creation & favoriting system, consistent across multiple devices.",
+                    "Enabled meaningful team connection for in-person and remote workers with a self-timed, multi-user, multi-choice image quiz for the new mini kit series release.",
+                    "Achieved enhanced user experience by implementing new animated features such as a CountdownTimer with progress bar component - complete with traffic light color states, visually alerting the user of the quiz’s time constraints.",
+                    "Delivered project early by articulating ideas, goals and methodologies resulting in seamless interdepartmental collaboration.",
+                    "Initiated a strong relationship with the client through active listening and seeking feedback, prioritizing client satisfaction and project success throughout.",
+                ],
+            },
+        ],
         href: "https://risingteam.com/",
         projects: [
             {

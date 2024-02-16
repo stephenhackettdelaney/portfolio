@@ -22,20 +22,32 @@ const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Projects({ setSelectedProject }: { setSelectedProject: Dispatch<SetStateAction<string>> }) {
     return (
-        <section className="bg-[#F8F8F8] py-[72px] px-6">
-            <section className="flex flex-col max-w-[962px] m-auto">
-                <h2 className={`${besley.className} font-sans font-bold text-[26px] mb-[36px]`}>Projects</h2>
-                <section className="flex flex-col space-y-[72px]">
-                    {PROJECTS.map(({ name, ...values }, index) => {
-                        return (
-                            <>
-                                <button className='hover:cursor-zoom-in' onClick={() => setSelectedProject(name)}>
-                                    <Project key={index} {...values} />
-                                </button>
-                            </>
-                        )
-                    })}
-                </section>
+        <Content>
+            <SectionHeading>Projects</SectionHeading>
+            <section className="flex flex-col gap-[72px]">
+                {PROJECTS.map(({ name, ...values }, index) => (
+                    <button key={index} className='hover:cursor-zoom-in' onClick={() => {
+                        console.log("name : ", name)
+                        setSelectedProject(name)
+                    }}>
+                        <Project {...values} />
+                    </button>
+                )
+                )}
+            </section>
+        </Content>
+    )
+}
+
+function SectionHeading({ className = "", children }: { className?: string, children: string }) {
+    return <h2 className={`${besley.className} font-sans font-bold text-2xl ${className}`}>{children}</h2>
+}
+
+function Content({ children }: { children: ReactNode }) {
+    return (
+        <section id="projects" className="bg-[#F8F8F8] py-[72px] px-6">
+            <section className="flex flex-col gap-9 max-w-[962px] m-auto">
+                {children}
             </section>
         </section>
     )
@@ -44,21 +56,15 @@ export default function Projects({ setSelectedProject }: { setSelectedProject: D
 type Project = {
     title: string,
     description: string,
-    summary: string,
-    role: string,
 }
 
-function Project({ image, stack, ...rest }:
-    Project & { image: string, stack: string[] }
+function Project({ image, alt = "", stack, ...rest }:
+    Project & { image: string, alt: string, stack: string[] }
 ) {
     return (
         <Card>
-            {/* <Image src={image} height={342} width={572} alt="display of winnebago products" /> */}
-            <div className='relative'>
-                {/* <Image src={image} fill={true} className='absolute left-0 object-contain' alt="display of winnebago products" /> */}
-                <Image src={image} width={0} sizes="100vw" height={0} alt="display of winnebago products" style={{ width: '100%', height: 'auto' }} />
-            </div>
-            <section className="m-8 ml-4 ">
+            <Image src={image} width={0} sizes="100vw" height={0} alt={alt} style={{ width: '100%', height: 'auto' }} priority />
+            <section className="flex flex-col gap-4 justify-center m-3 md:m-4 lg:m-8 text-left">
                 <Details {...rest} />
                 <Stack stack={stack} />
             </section>
@@ -68,37 +74,29 @@ function Project({ image, stack, ...rest }:
 
 function Card({ children }: { children: ReactNode }): ReactNode {
     return (
-        <div className="relative grid md:grid-cols-[2fr,1fr] lg:grid-cols-[640px,1fr] bg-white max-w-[962px] shadow-lg">
-            {/* </div><div className="relative flex flex-col bg-white overflow-hidden shadow-lg"> */}
+        <div className="relative grid sm:grid-cols-[2fr,1fr] bg-white shadow-lg">
             {children}
         </div>
     )
 }
 
-function Details({ title, description, summary, role }: Project) {
+function Details({ title, description }: Project) {
     return (
-        <section className='text-left'>
-            <h2 className={`${dm_serif_text.className} font-normal text-[22px]`}>{title}</h2>
-            <p className={`${dm_sans.className} text-[12px] text-[#4F4F4F] mt-[4px]`}>{description}</p>
-            {/* <p className={`${dm_sans.className} text-[14px] leading-[24px] mt-[10px]`}>{summary}</p> */}
-            <h2 className={`${dm_sans.className} font-sans font-normal text-[16px] mt-[24px]`}>{role}</h2>
+        <section>
+            <h2 className={`${dm_serif_text.className} font-normal text-base md:text-xl lg:text-2xl`}>{title}</h2>
+            <p className={`${dm_sans.className} text-xs lg:text-[12px] text-[#4F4F4F] mt-[4px]`}>{description}</p>
         </section>
     )
 }
 
 function Stack({ stack }: { stack: string[] }) {
     return (
-        <ul className={`${dm_serif_text.className} font-serif font-normal text-[16px] flex items-center space-x-4 mt-[4px]`}>
-            {stack.map((value: string, index: number) => {
-                const isLast = index === stack.length - 1
-                return (
-                    <>
-                        <li>{value}</li>
-                        {!isLast && <li><div className="w-1 h-1 rounded-full bg-black" /></li>}
-                    </>
-                )
-            })}
-        </ul>
+        <section className='flex flex-col space-y-2'>
+            <h2 className='underline text-sm'>Tech Stack:</h2>
+            <ul className={`${aleo.className} flex lg:flex-col flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm lg:space-x-0`}>
+                {stack.map((value: string, index: number) => <li key={index}>{value}</li>)}
+            </ul>
+        </section>
     )
 }
 
@@ -106,9 +104,6 @@ type Projects = {
     name: string,
     title: string,
     description: string,
-    summary: string,
-    role: string,
-    media: string,
     image: string,
     alt: string,
     stack: string[]
@@ -118,47 +113,35 @@ const PROJECTS: Projects = [
     {
         name: "winnebago",
         title: 'Winnebago Electric RV',
-        description: 'Mobile applications for route managment, vehicle status & load tutorials.',
-        summary: "Created three mobile applications - Aventura, Weight Distribution and Tahoe - for Winnebago Electric RV.",
-        role: 'Int. Software Enginner',
-        media: 'image',
+        description: 'Mobile applications for route managment, vehicle status & load tutorials',
         image: "/projects/winnebago_display.png",
-        alt: "winnebago products display",
-        stack: ["react", "node.js", "openAi", "ES6"]
+        alt: "Winnebago project",
+        stack: ['react-native', 'expo', 'mapbox', 'tomorrow.io'],
     },
     {
         name: "futureCards",
         title: 'Future Cards',
-        description: 'AI powered re-branding web application.',
-        summary: "Developed an AI powered re-branding web application, decreasing ideation time. Conducted team meetings, code reviews, collaborated with design and directed ticket creation/completion.",
-        role: 'Sr. Software Enginner',
-        media: 'image',
+        description: 'An AI powered re-branding web application, that helps users reduce ideation time',
         image: "/projects/fc_square.png",
-        alt: "Psykick products display",
-        stack: ["react", "node.js", "openAi", "ES6"]
+        alt: "Psykick project",
+        stack: ['react', 'node.js', 'openAI', 'remix.run', 'tailwindcss'],
     },
 
     {
         name: "psykick",
         title: 'Psykick',
-        description: 'A sports predictor application.',
-        summary: "Psykick, a sports prediction startup provides a thrilling environment for sports enthusiasts.",
-        role: 'Int. Software Enginner',
-        media: 'image',
+        description: 'A sports prediction startup which provides a thrilling environment for sports enthusiasts',
         image: "/projects/psykick_square.png",
-        alt: "Psykick products display",
-        stack: ["react", "node.js", "openAi", "ES6"]
+        alt: "Psykick project",
+        stack: ['react', 'framer-motion', 'tailwindcss'],
     },
     {
         name: "risingTeam",
         title: 'Rising Team ',
-        description: 'Enhance team efficiency application.',
-        summary: "Engineered two new management kits. Conducted code reviews, designed feature implementation, created decision/hand-off documentation, responsible for testing and debugging code.",
-        role: 'Sr. Software Enginner',
-        media: 'image',
+        description: 'Web and mobile applications which equip managers to easily run awesome team development sessions',
         image: "/projects/rt_mobile_orange.png",
-        alt: "Rising Team products display",
-        stack: ["react", "node.js", "openAi", "ES6"]
+        alt: "Rising Team project",
+        stack: ['react', 'python', 'es6', 'styled-components'],
     },
 ]
 

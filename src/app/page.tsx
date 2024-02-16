@@ -18,7 +18,7 @@ import NodeIcon from "../../public/icons/technical/NodeIcon";
 import TypescriptIcon from "../../public/icons/technical/TypescriptIcon";
 
 import ProblemSolvingIcon from "../../public/icons/soft/ProblemSolvingIcon";
-import LeadershipIcon from "../../public/icons/soft/LeadershipIcon";
+import CollaborationIcon from "../../public/icons/soft/CollaborationIcon";
 import SelfMotivatedIcon from "../../public/icons/soft/SelfMotivatedIcon";
 import CreativityIcon from "../../public/icons/soft/CreativityIcon";
 import AttentionToDetailIcon from "../../public/icons/soft/AttentionToDetailIcon";
@@ -34,6 +34,7 @@ import EmailIcon from '../../public/icons/contact/EmailIcon';
 import LinkedInIcon from '../../public/icons/contact/LinkedInIcon';
 
 import { Projects, Modal } from "@/components";
+import Link from 'next/link';
 
 
 const besley = Besley({
@@ -57,13 +58,13 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState("")
 
   return (
-    <main>
+    <main className='scroll-smooth'>
       {/* <BreakPoints /> */}
       <PersonalDetails />
       <Projects setSelectedProject={setSelectedProject} />
       <Modal
         selectedProject={selectedProject}
-        setSelectedProject={setSelectedProject}
+        closeModal={() => setSelectedProject("")}
       />
       <FullWidthBackground backgroundColor='bg-[#FFF]'>
         <Section
@@ -77,7 +78,7 @@ export default function Home() {
           titleClassName="text-[#F2F2F2]"
           title="Soft Skills"
           data={SOFT_SKILLS}
-          cardType="circle"
+          cardType="transparent"
         />
         <Section
           titleClassName="text-[#F2F2F2]"
@@ -96,11 +97,11 @@ function BreakPoints() {
     <div className='fixed z-10 pointer-events-auto'>
       {show && (
         <>
-          <div className='fixed left-[640px] top-0 bottom-0 w-[2px] bg-purple-500' />
-          <div className='fixed left-[768px] top-0 bottom-0 w-[2px] bg-purple-600' />
-          <div className='fixed left-[1024px] top-0 bottom-0 w-[2px] bg-purple-700' />
-          <div className='fixed left-[1280px] top-0 bottom-0 w-[2px] bg-purple-800' />
-          <div className='fixed left-[1536px] top-0 bottom-0 w-[2px] bg-purple-900' />
+          <div className='fixed left-[640px] top-0 bottom-0 w-[2px] bg-zinc-500' />
+          <div className='fixed left-[768px] top-0 bottom-0 w-[2px] bg-zinc-600' />
+          <div className='fixed left-[1024px] top-0 bottom-0 w-[2px] bg-zinc-700' />
+          <div className='fixed left-[1280px] top-0 bottom-0 w-[2px] bg-zinc-800' />
+          <div className='fixed left-[1536px] top-0 bottom-0 w-[2px] bg-zinc-900' />
         </>
       )}
       <button
@@ -113,19 +114,23 @@ function BreakPoints() {
 
 function PersonalDetails() {
   return (
-    <section className="h-[100vh] flex flex-col items-center justify-center w-full ">
+    <section className="h-[100vh] flex flex-col items-center justify-center w-full">
       <section className="flex flex-col max-w-[962px] w-full px-6">
         <div>
           <h1 className={`${besley.className} font-sans font-bold text-xl sm:text-3xl md:text-4xl`}>Stephen Hackett-Delaney</h1>
           <p className={`${dm_sans.className} text-xs sm:text-sm text-[#707070] mt-2`}>Permanent resident, Vancouver, BC</p>
         </div>
         <h2 className={`${besley.className} font-sans font-light text-lg sm:text-2xl mt-[36px]`}>Software Engineer</h2>
-        <div className="mt-[26px]">
-          <h2 className={`${besley.className} font-sans text-lg sm:text-2xl`}>Comedia Design</h2>
-          <p className={`${dm_sans.className} text-xs sm:text-sm text-[#707070]`}>Jan 2020 - Present</p>
-        </div>
-        <p className={`${besley.className} sm:max-w-[480px] text-sm leading-[26px] sm:text-[18px] sm:leading-[30px] mt-[56px]`}>5+ years experience building production-ready web applications. Passion for creating user-centric experiences, performance optimization and delivering in a timely manner. Thrive in environments with inter-departmental collaboration. Comfortable leading or assisting projects. Highly proficient in React, JavaScript, Node.js, Prisma & TailwindCSS.</p>
-        <SeeMoreArrow className="mt-[100px]" />
+        <p className={`${besley.className} sm:max-w-[480px] text-sm leading-[26px] sm:text-[18px] sm:leading-[30px] mt-[56px]`}>5+ years experience building production-ready web & mobile applications. Passion for creating user-centric experiences, performance optimization and delivering in a timely manner. Thrive in environments with inter-departmental collaboration. Comfortable leading or assisting projects. Highly proficient in React, JavaScript, Node.js, Prisma & TailwindCSS.</p>
+        <Link
+          href="#projects"
+          className="group relative h-12 w-12 pointer-events-auto overflow-hidden mt-[100px]"
+        >
+          <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-black flex justify-center items-center">
+            <SeeMoreArrow className='group-hover:text-white transition-color duration-500 w-10 h-10' />
+          </div>
+          <div className="w-full h-full bg-black -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
+        </Link>
       </section>
     </section>
   )
@@ -139,12 +144,16 @@ function FullWidthBackground({ backgroundColor = "bg-[#F8F8F8]", children }: { b
 
 function ContactMe() {
   return (
-    <section className="py-[72px] px-6 lg:px-0">
+    <section className="h-screen py-[72px] px-6 lg:px-0">
       <section className="flex flex-col max-w-[962px] m-auto">
         <h2 className={`${besley.className} font-sans font-bold text-[26px] mb-[36px]`}>Contact Me</h2>
         <section className="flex gap-[16px]">
-          <LinkedInIcon />
-          <EmailIcon />
+          <Link className='group flex flex-col gap-2 items-center justify-center' href="https://www.linkedin.com/in/stephen-hd/" target='_blank'>
+            <LinkedInIcon className='w-9 h-9 hover:text-sky-600' />
+          </Link>
+          <Link href="mailto:stephen@comediadesign.com" className='group flex flex-col gap-2 items-center justify-center'>
+            <EmailIcon className='w-9 h-9 hover:text-rose-500' />
+          </Link>
         </section>
         <p className={`${dm_sans.className} text-[12px] mt-[64px]`}>© 2024. All rights reserved</p>
       </section>
@@ -178,9 +187,9 @@ function Section({ titleClassName, title, data, cardType = "square" }: { titleCl
 
 function Content({ titleClassName, title, children }: { titleClassName?: string, title: string, children: ReactNode }) {
   return (
-    <section className="flex flex-col w-full max-w-[962px] m-auto px-6 lg:px-0">
+    <section className="flex flex-col w-full max-w-[962px] px-6 lg:px-0 m-auto">
       <h2 className={`${besley.className} font-sans font-bold text-[26px] text-left ${titleClassName}`}>{title}</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 justify-items-center gap-[64px] mt-[32px]">
+      <div className="grid grid-cols-2 sm:grid-cols-3 justify-items-between gap-[32px] mt-[32px]">
         {children}
       </div>
     </section>
@@ -189,7 +198,7 @@ function Content({ titleClassName, title, children }: { titleClassName?: string,
 
 function CardSquare({ title, icon: Icon }: Values) {
   return (
-    <div className="flex flex-col gap-y-[4px] justify-center items-center">
+    <div className="flex flex-col gap-y-[4px] justify-center items-center border-2 border-zinc-300 w-full py-6">
       <Icon />
       <p className={`${aleo.className} text-[#474747] mt-2`}>{title}</p>
     </div>
@@ -198,20 +207,20 @@ function CardSquare({ title, icon: Icon }: Values) {
 
 function CardTransparent({ title, icon: Icon }: Values) {
   return (
-    <div className="flex flex-col gap-y-[4px] justify-center items-center w-[130px] h-[120px] bg-transparent border-2 rounded-2xl pt-4">
+    <div className="flex flex-col gap-y-4 justify-center items-center bg-transparent border-2 py-6">
       <Icon className="text-white" />
-      <p className={`${aleo.className} text-white mt-2`}>{title}</p>
+      <p className={`${aleo.className} text-white`}>{title}</p>
     </div>
   )
 }
 
 function CardCircle({ title, icon: Icon }: Values) {
   return (
-    <section className='flex flex-col items-center'>
-      <div className="flex justify-center items-center w-[130px] h-[130px] border-2 border-white rounded-full mb-2">
+    <section className='flex flex-col items-center w-full h-full'>
+      <div className="flex justify-center items-center w-full h-[100px] border-2 border-white mb-2">
         <Icon className="text-white" />
       </div>
-      <p className={`${aleo.className} text-[#474747] mt-2 border-t-2 border-white w-full text-center text-white pt-2`}>{title}</p>
+      <p className={`${aleo.className} text-[#474747] mt-2 w-full text-center text-white pt-2`}>{title}</p>
     </section>
 
   )
@@ -274,15 +283,15 @@ const SOFT_SKILLS = [
     icon: ProblemSolvingIcon,
   },
   {
-    title: "Leadership",
-    icon: LeadershipIcon,
+    title: "Collaboration",
+    icon: CollaborationIcon,
   },
   {
     title: "Creativity",
     icon: CreativityIcon,
   },
   {
-    title: "Problem Solving",
+    title: "Leadership",
     icon: ProblemSolvingIcon,
   },
   {
@@ -290,7 +299,7 @@ const SOFT_SKILLS = [
     icon: SelfMotivatedIcon,
   },
   {
-    title: "Attention To Detail",
+    title: "Detail Orientated",
     icon: AttentionToDetailIcon,
   },
 ]
@@ -318,7 +327,7 @@ const INTERESTS = [
     icon: DogsIcon,
   },
   {
-    title: "sleeping",
+    title: "cats",
     icon: SleepingIcon,
   },
 ]
