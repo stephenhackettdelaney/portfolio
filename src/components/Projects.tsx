@@ -24,12 +24,9 @@ export default function Projects({ setSelectedProject }: { setSelectedProject: D
     return (
         <Content>
             <SectionHeading>Projects</SectionHeading>
-            <section className="flex flex-col gap-[72px]">
+            <section className="flex flex-col gap-[32px] md:gap-[72px]">
                 {PROJECTS.map(({ name, ...values }, index) => (
-                    <button key={index} className='hover:cursor-zoom-in' onClick={() => {
-                        console.log("name : ", name)
-                        setSelectedProject(name)
-                    }}>
+                    <button key={index} className='hover:cursor-zoom-in' onClick={() => setSelectedProject(name)}>
                         <Project {...values} />
                     </button>
                 )

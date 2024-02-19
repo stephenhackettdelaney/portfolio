@@ -9,8 +9,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
 import cns from 'classnames'
 
-import ExternalLinkIcon from '../../public/icons/ExternalLinkIcon'
-
 const besley = Besley({
     subsets: ['latin'],
     variable: '--font-besley',
@@ -51,7 +49,7 @@ export function Modal({ selectedProject, closeModal }: { selectedProject: string
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                     >
-                        <div className='absolute z-10 top-10 bottom-10 left-[50%] -translate-x-[50%] w-full max-w-[800px] max-h-[900px] p-4 md:p-[44px] bg-white rounded-xl overflow-y-scroll space-y-8'>
+                        <div className='absolute z-10 top-10 bottom-10 left-[50%] -translate-x-[50%] w-[95%] mx-auto lg:w-full max-w-[800px] max-h-[900px] p-4 md:p-[44px] bg-white rounded-xl overflow-y-scroll space-y-8'>
                             <CompanyDetails
                                 closeModal={closeModal}
                                 {...PROJECTS[`${selectedProject}`]} />
@@ -101,8 +99,8 @@ function CompanyDetails({ title, description, overview, href, closeModal }: { ti
         <header className='bg-white flex flex-col gap-4 z-50'>
             <div className='flex justify-between'>
                 <div className='flex flex-col'>
-                    <h2 className={`${dm_serif_text.className} text-[32px]`}>{title}</h2>
-                    <p className={`${dm_sans.className} text-sm text-[#555555] leading-[24px] max-w-[640px]`}>{description}</p>
+                    <h2 className={`${dm_serif_text.className} text-2xl md:text-3xl`}>{title}</h2>
+                    <p className={`${dm_sans.className} text-sm text-[#555555] leading-[24px] pr-12`}>{description}</p>
                 </div>
                 <button className={`${dm_sans.className} text-sm text-[#F25555] w-14 h-14 rounded-full hover:underline`} onClick={closeModal}>Close</button>
             </div>
@@ -145,16 +143,8 @@ function ProjectDetails({ title, description, stack }: { title: string, descript
         <section>
             <h2 className={`${dm_serif_text.className} text-xl`}>{title}</h2>
             <p className={`${dm_sans.className} text-[14px] text-[#555555] leading-[24px] max-w-[640px]`}>{description}</p>
-            <ul className={`${aleo.className} flex gap-x-4 text-[14px]`}>
-                {stack.map((value: string, index: number): ReactNode => {
-                    const isLast = index === stack.length - 1
-                    return (
-                        <section key={index} className='flex items-center gap-x-4'>
-                            <li key={index}>{value}</li>
-                            {!isLast && <div className='w-1 h-1 bg-zinc-900 rounded-full' />}
-                        </section>
-                    )
-                })}
+            <ul className={`${aleo.className} flex flex-col sm:flex-row gap-x-4 text-[14px]`}>
+                {stack.map((value: string, index: number): ReactNode => <li key={index}>{value}</li>)}
             </ul>
         </section>
     )
@@ -178,7 +168,7 @@ function ProjectImage({ className = "bg-zinc-400", src, description, alt, radius
     return (
         <div className='flex flex-col gap-y-4 h-full'>
             {src.includes(".mov") ? <video src={src} playsInline loop muted autoPlay /> :
-                <div className={cns(`relative flex items-center justify-center w-[400px] md:w-[520px] mx-auto`, className, radius)}>
+                <div className={cns(`relative flex items-center justify-center w-[280px] sm:w-[400px] md:w-[520px] mx-auto`, className, radius)}>
                     <Image src={src} width={0} sizes="100vw" height={0} alt="display of winnebago products" style={{ width: '100%', height: 'auto' }} priority />
                 </div>
             }
