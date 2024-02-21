@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: 'Stephen Hackett-Delaney',
     images: [
       {
-        url: 'https://www.stephenhd.com/open-graph.jpeg', // Must be an absolute URL
+        url: 'https://www.stephenhd.com/opengraph-image.png', // Must be an absolute URL
         width: 800,
         height: 600,
       },
