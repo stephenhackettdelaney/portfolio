@@ -3,21 +3,21 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Stephen Hackett-Delaney",
-  description: "Software engineering portfolio showcasing the work of Stephen Hackett-Delaney",
+  description: "Software engineering portfolio",
   keywords: ['Stephen Hackett-Delaney', 'Stephen hd', 'stephenhd', 'Next.js', 'React', 'JavaScript', 'web design', 'website design', 'website builder'],
-  authors: [{ name: 'Stephen Hackett-Delaney' }, { name: 'Josh', url: 'https://nextjs.org' }],
+  authors: [{ name: 'Stephen Hackett-Delaney', url: 'https://www.stephenhd.com/' }],
   creator: 'Stephen Hackett-Delaney',
   publisher: 'Stephen Hackett-Delaney',
   openGraph: {
     title: "Stephen Hackett-Delaney",
-    description: "Software engineering portfolio showcasing the work of Stephen Hackett-Delaney",
+    description: "Software engineering portfolio",
     url: 'https://www.stephenhd.com/',
     siteName: 'Stephen Hackett-Delaney',
     images: [
       {
         url: 'https://www.stephenhd.com/opengraph-image.png', // Must be an absolute URL
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 630,
       },
     ],
     locale: 'en_US',
