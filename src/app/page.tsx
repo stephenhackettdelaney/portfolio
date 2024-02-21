@@ -28,7 +28,6 @@ import GithubIcon from "../../public/icons/technical/GithubIcon";
 import TailwindIcon from "../../public/icons/technical/TailwindIcon";
 import PostgresIcon from "../../public/icons/technical/PostgresIcon";
 import GitIcon from "../../public/icons/technical/GitIcon";
-import LeadershipIcon from '../../public/icons/soft/CollaborationIcon';
 import CatsIcon from '../../public/icons/interests/CatsIcon';
 import CompassIcon from '../../public/icons/soft/CompassIcon';
 
