@@ -9,7 +9,6 @@ import SportsIcon from "../../public/icons/interests/SportsIcon";
 import MusicIcon from "../../public/icons/interests/MusicIcon";
 import SkiingIcon from "../../public/icons/interests/SkiingIcon";
 import DogsIcon from "../../public/icons/interests/DogsIcon";
-import SleepingIcon from "../../public/icons/interests/Sleeping";
 import SeeMoreArrow from "../../public/icons/interests/SeeMoreArrow";
 
 import ReactIcon from "../../public/icons/technical/ReactIcon";
@@ -29,6 +28,9 @@ import GithubIcon from "../../public/icons/technical/GithubIcon";
 import TailwindIcon from "../../public/icons/technical/TailwindIcon";
 import PostgresIcon from "../../public/icons/technical/PostgresIcon";
 import GitIcon from "../../public/icons/technical/GitIcon";
+import LeadershipIcon from '../../public/icons/soft/CollaborationIcon';
+import CatsIcon from '../../public/icons/interests/CatsIcon';
+import CompassIcon from '../../public/icons/soft/CompassIcon';
 
 import EmailIcon from '../../public/icons/contact/EmailIcon';
 import LinkedInIcon from '../../public/icons/contact/LinkedInIcon';
@@ -292,7 +294,7 @@ const SOFT_SKILLS = [
   },
   {
     title: "Leadership",
-    icon: ProblemSolvingIcon,
+    icon: CompassIcon,
   },
   {
     title: "Self-Motivated",
@@ -328,6 +330,6 @@ const INTERESTS = [
   },
   {
     title: "cats",
-    icon: SleepingIcon,
+    icon: CatsIcon,
   },
 ]
