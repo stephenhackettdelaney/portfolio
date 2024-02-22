@@ -3,14 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Stephen Hackett-Delaney",
-  description: "Software engineering portfolio",
+  description: "Software engineer portfolio",
   keywords: ['Stephen Hackett-Delaney', 'Stephen hd', 'stephenhd', 'Next.js', 'React', 'JavaScript', 'web design', 'website design', 'website builder'],
   authors: [{ name: 'Stephen Hackett-Delaney', url: 'https://www.stephenhd.com/' }],
   creator: 'Stephen Hackett-Delaney',
   publisher: 'Stephen Hackett-Delaney',
   openGraph: {
     title: "Stephen Hackett-Delaney",
-    description: "Software engineering portfolio",
+    description: "Software engineer portfolio",
     url: 'https://www.stephenhd.com/',
     siteName: 'Stephen Hackett-Delaney',
     images: [
@@ -25,11 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    siteId: '1467726470533754880',
-    creator: '@nextjs',
-    creatorId: '1467726470533754880',
+    title: 'Stephen Hackett-Delaney',
+    description: 'Software engineer portfolio',
+    creator: 'Stephen Hackett-Delaney',
     images: ['https://www.stephenhd.com/twitter-image.png'], // Must be an absolute URL
   },
   robots: {
