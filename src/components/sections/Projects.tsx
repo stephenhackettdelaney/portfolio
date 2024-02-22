@@ -1,13 +1,8 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-
 import Image from "next/image";
-import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
+import { DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
 
-const besley = Besley({
-    subsets: ['latin'],
-    variable: '--font-besley',
-    weight: ["400", "700"],
-})
+import { Content, SectionHeading } from '..';
 
 const dm_sans = DM_Sans({
     subsets: ['latin'],
@@ -22,31 +17,16 @@ const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Projects({ setSelectedProject }: { setSelectedProject: Dispatch<SetStateAction<string>> }) {
     return (
-        <Content>
+        <Content className='bg-[#F8F8F8]'>
             <SectionHeading>Projects</SectionHeading>
             <section className="flex flex-col gap-[32px] md:gap-[72px]">
                 {PROJECTS.map(({ name, ...values }, index) => (
                     <button key={index} className='hover:cursor-zoom-in' onClick={() => setSelectedProject(name)}>
                         <Project {...values} />
                     </button>
-                )
-                )}
+                ))}
             </section>
         </Content>
-    )
-}
-
-function SectionHeading({ className = "", children }: { className?: string, children: string }) {
-    return <h2 className={`${besley.className} font-sans font-bold text-2xl ${className}`}>{children}</h2>
-}
-
-function Content({ children }: { children: ReactNode }) {
-    return (
-        <section id="projects" className="bg-[#F8F8F8] py-[72px] px-6">
-            <section className="flex flex-col gap-9 max-w-[962px] m-auto">
-                {children}
-            </section>
-        </section>
     )
 }
 

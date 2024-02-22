@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react'
 import type { ReactNode } from 'react';
-import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
+import { Besley, DM_Sans, Aleo } from 'next/font/google'
 import cns from 'classnames'
 
 import ChessIcon from "../../public/icons/interests/ChessIcon";
@@ -31,11 +31,10 @@ import GitIcon from "../../public/icons/technical/GitIcon";
 import CatsIcon from '../../public/icons/interests/CatsIcon';
 import CompassIcon from '../../public/icons/soft/CompassIcon';
 
-import EmailIcon from '../../public/icons/contact/EmailIcon';
-import LinkedInIcon from '../../public/icons/contact/LinkedInIcon';
-
-import { Projects, Modal } from "@/components";
+import { Projects, Modal, ContactMe } from "@/components";
 import Link from 'next/link';
+
+
 
 
 const besley = Besley({
@@ -48,11 +47,6 @@ const dm_sans = DM_Sans({
   subsets: ['latin'],
 })
 
-const dm_serif_text = DM_Serif_Text({
-  subsets: ['latin'],
-  weight: ["400"],
-})
-
 const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Home() {
@@ -60,7 +54,6 @@ export default function Home() {
 
   return (
     <main className='scroll-smooth'>
-      {/* <BreakPoints /> */}
       <PersonalDetails />
       <Projects setSelectedProject={setSelectedProject} />
       <Modal
@@ -92,26 +85,7 @@ export default function Home() {
     </main>
   );
 }
-function BreakPoints() {
-  const [show, setShow] = useState(true)
-  return (
-    <div className='fixed z-10 pointer-events-auto'>
-      {show && (
-        <>
-          <div className='fixed left-[640px] top-0 bottom-0 w-[2px] bg-zinc-500' />
-          <div className='fixed left-[768px] top-0 bottom-0 w-[2px] bg-zinc-600' />
-          <div className='fixed left-[1024px] top-0 bottom-0 w-[2px] bg-zinc-700' />
-          <div className='fixed left-[1280px] top-0 bottom-0 w-[2px] bg-zinc-800' />
-          <div className='fixed left-[1536px] top-0 bottom-0 w-[2px] bg-zinc-900' />
-        </>
-      )}
-      <button
-        className={`fixed z-50 flex justify-center items-center top-10 left-10 w-16 h-16 rounded-full bg-zinc-800 text-zinc-100 text-lg sm:after:content-['sm'] md:after:content-['md'] lg:after:content-['lg'] xl:after:content-['xl'] 2xl:after:content-['2xl']`}
-        onClick={() => setShow(!show)}
-      />
-    </div>
-  )
-}
+
 
 function PersonalDetails() {
   return (
@@ -143,35 +117,15 @@ function FullWidthBackground({ backgroundColor = "bg-[#F8F8F8]", children }: { b
   )
 }
 
-function ContactMe() {
-  return (
-    <section className="h-screen py-[72px] px-6 lg:px-0">
-      <section className="flex flex-col max-w-[962px] m-auto">
-        <h2 className={`${besley.className} font-sans font-bold text-[26px] mb-[36px]`}>Contact Me</h2>
-        <section className="flex gap-[16px]">
-          <Link className='group flex flex-col gap-2 items-center justify-center' href="https://www.linkedin.com/in/stephen-hd/" target='_blank'>
-            <LinkedInIcon className='w-9 h-9 hover:text-sky-600' />
-          </Link>
-          <Link href="mailto:stephen@comediadesign.com" className='group flex flex-col gap-2 items-center justify-center'>
-            <EmailIcon className='w-9 h-9 hover:text-rose-500' />
-          </Link>
-        </section>
-        <p className={`${dm_sans.className} text-[12px] mt-[64px]`}>© 2024. All rights reserved</p>
-      </section>
-    </section>
-  )
-}
-
 type Values = {
   title: string,
   icon: any
 }
 
-function Section({ titleClassName, title, data, cardType = "square" }: { titleClassName?: string, title: string, data: any, cardType: "square" | "circle" | "transparent" }) {
+function Section({ titleClassName, title, data, cardType = "square" }: { titleClassName?: string, title: string, data: any, cardType: "square" | "transparent" }) {
 
   const components = {
     square: CardSquare,
-    circle: CardCircle,
     transparent: CardTransparent
   }
 
@@ -212,18 +166,6 @@ function CardTransparent({ title, icon: Icon }: Values) {
       <Icon className="text-white" />
       <p className={`${aleo.className} text-white`}>{title}</p>
     </div>
-  )
-}
-
-function CardCircle({ title, icon: Icon }: Values) {
-  return (
-    <section className='flex flex-col items-center w-full h-full'>
-      <div className="flex justify-center items-center w-full h-[100px] border-2 border-white mb-2">
-        <Icon className="text-white" />
-      </div>
-      <p className={`${aleo.className} text-[#474747] mt-2 w-full text-center text-white pt-2`}>{title}</p>
-    </section>
-
   )
 }
 
