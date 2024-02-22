@@ -23,6 +23,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Next.js',
+    description: 'The React Framework for the Web',
+    siteId: '1467726470533754880',
+    creator: '@nextjs',
+    creatorId: '1467726470533754880',
+    images: ['https://www.stephenhd.com/twitter-image.png'], // Must be an absolute URL
+  },
   robots: {
     index: false,
     follow: true,
