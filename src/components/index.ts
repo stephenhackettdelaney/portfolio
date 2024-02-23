@@ -3,5 +3,6 @@ export { default as Content } from './Content'
 export { default as SectionHeading } from './SectionHeading'
 export { default as Grid } from './Grid'
 export { default as Card } from './Card'
+export { default as BreakPoints } from './Breakpoints'
 
 export * from './sections'

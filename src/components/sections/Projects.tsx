@@ -41,7 +41,7 @@ function Project({ image, alt = "", stack, ...rest }:
     return (
         <Card>
             <Image src={image} width={0} sizes="100vw" height={0} alt={alt} style={{ width: '100%', height: 'auto' }} priority />
-            <section className="flex flex-col gap-4 justify-center m-3 md:m-4 lg:m-8 text-left">
+            <section className="flex flex-col gap-4 justify-center m-6 md:m-4 lg:ml-8 text-left">
                 <Details {...rest} />
                 <Stack stack={stack} />
             </section>
@@ -59,9 +59,9 @@ function Card({ children }: { children: ReactNode }): ReactNode {
 
 function Details({ title, description }: Project) {
     return (
-        <section>
-            <h2 className={`${dm_serif_text.className} font-normal text-base md:text-xl lg:text-2xl`}>{title}</h2>
-            <p className={`${dm_sans.className} text-xs lg:text-[12px] text-[#4F4F4F] mt-[4px]`}>{description}</p>
+        <section className='flex flex-col gap-2'>
+            <h2 className={`${dm_serif_text.className} font-normal text-xl lg:text-2xl`}>{title}</h2>
+            <p className={`${dm_sans.className} text-xs md:text-sm text-[#4F4F4F]`}>{description}</p>
         </section>
     )
 }

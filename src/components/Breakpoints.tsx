@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function BreakPoints() {
+export default function BreakPoints() {
     const [show, setShow] = useState(true)
     return (
         <div className='fixed z-10 pointer-events-auto'>
