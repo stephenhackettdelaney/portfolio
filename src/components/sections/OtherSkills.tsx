@@ -29,7 +29,7 @@ export default function OtherSkills() {
     return (
 
         <div className="bg-[#474747] py-[120px]">
-            <section className={`flex flex-col gap-[120px] w-full max-w-[962px] m-auto`}>
+            <section className={`flex flex-col gap-[120px] w-full max-w-[962px] m-auto px-6`}>
                 <section className="flex flex-col gap-9">
                     <SectionHeading className="text-[#F2F2F2]">Soft Skills</SectionHeading>
                     <Grid>

@@ -22,7 +22,7 @@ type Values = {
 
 export default function TechnicalKnowledge() {
     return (
-        <Content className="h-screen">
+        <Content className="md:h-screen">
             <SectionHeading>Technical Knowledge</SectionHeading>
             <Grid>
                 {TECHNICAL_KNOWLEDGE.map((values: Values, index: number): ReactNode => (
