@@ -1,7 +1,7 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const AttentionToDetailIcon = (props: SVGProps<SVGSVGElement>) => (
+const DetailOrientatedIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width={35}
@@ -15,4 +15,4 @@ const AttentionToDetailIcon = (props: SVGProps<SVGSVGElement>) => (
         />
     </svg>
 )
-export default AttentionToDetailIcon
+export default DetailOrientatedIcon

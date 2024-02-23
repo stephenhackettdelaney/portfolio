@@ -4,8 +4,7 @@ import { DM_Sans } from "next/font/google"
 
 import { Content, SectionHeading } from ".."
 
-import EmailIcon from '../../../public/icons/contact/EmailIcon';
-import LinkedInIcon from '../../../public/icons/contact/LinkedInIcon';
+import { EmailIcon, LinkedInIcon } from '@/assets/icons';
 
 const dm_sans = DM_Sans({
     subsets: ['latin'],

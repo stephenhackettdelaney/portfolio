@@ -1,9 +1,9 @@
 import type { ReactNode } from "react"
 
-export default function Content({ className = "", id, children }: { className?: string, id?: string, children: ReactNode }) {
+export default function Content({ className = "", gap = "gap-9", id, children }: { className?: string, gap?: string, id?: string, children: ReactNode }) {
     return (
-        <section id={id} className={`py-[72px] px-6 ${className}`}>
-            <section className="flex flex-col gap-9 max-w-[962px] m-auto">
+        <section id={id} className={`${className} py-[120px]`}>
+            <section className={`flex flex-col w-full max-w-[962px] m-auto ${gap}`}>
                 {children}
             </section>
         </section>

@@ -1,0 +1,6 @@
+export { default as CatsIcon } from './CatsIcon'
+export { default as ChessIcon } from './ChessIcon'
+export { default as MusicIcon } from './MusicIcon'
+export { default as DogsIcon } from './DogsIcon'
+export { default as SkiingIcon } from './SkiingIcon'
+export { default as SportsIcon } from './SportsIcon'

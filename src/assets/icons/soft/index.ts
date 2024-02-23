@@ -1,0 +1,7 @@
+export { default as CollaborationIcon } from './CollaborationIcon'
+export { default as CompassIcon } from './CompassIcon'
+export { default as CreativityIcon } from './CreativityIcon'
+export { default as DetailOrientatedIcon } from './DetailOrientatedIcon'
+export { default as LeadershipIcon } from './LeadershipIcon'
+export { default as ProblemSolvingIcon } from './ProblemSolvingIcon'
+export { default as SelfMotivatedIcon } from './SelfMotivatedIcon'
