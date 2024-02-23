@@ -49,7 +49,7 @@ export function Modal({ selectedProject, closeModal }: { selectedProject: string
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                     >
-                        <div className='absolute z-10 top-10 bottom-10 left-[50%] -translate-x-[50%] w-[95%] mx-auto lg:w-full max-w-[800px] max-h-[80%] sm:max-h-[900px] p-4 md:p-[44px] bg-white rounded-xl overflow-y-scroll space-y-8'>
+                        <div className='absolute z-10 top-10 bottom-10 left-[50%] -translate-x-[50%] w-[95%] m-auto lg:w-full max-w-[800px] max-h-[90%] sm:max-h-[900px] p-4 md:p-[44px] bg-white rounded-xl overflow-y-scroll space-y-8'>
                             <CompanyDetails
                                 closeModal={closeModal}
                                 {...PROJECTS[`${selectedProject}`]} />

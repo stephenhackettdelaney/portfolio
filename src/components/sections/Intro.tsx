@@ -27,7 +27,7 @@ export default function Intro() {
             <p className={`${besley.className} sm:max-w-[480px] text-base leading-[200%] sm:text-[18px] mt-[56px]`}>5+ years experience building production-ready web & mobile applications. Passion for creating user-centric experiences, performance optimization and delivering in a timely manner. Thrive in environments with inter-departmental collaboration. Comfortable leading or assisting projects. Highly proficient in React, JavaScript, Node.js, Prisma & TailwindCSS.</p>
             <Link
                 href="#projects"
-                className="group relative h-12 w-12 pointer-events-auto overflow-hidden mt-[100px] -z-10"
+                className="group relative h-12 w-12 pointer-events-auto overflow-hidden mt-[100px]"
             >
                 <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-black flex justify-center items-center">
                     <SeeMoreArrow className='group-hover:text-white transition-color duration-500 w-10 h-10' />
