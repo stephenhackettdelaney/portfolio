@@ -17,7 +17,7 @@ const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Projects({ setSelectedProject }: { setSelectedProject: Dispatch<SetStateAction<string>> }) {
     return (
-        <Content id="projects" className='bg-[#F8F8F8]'>
+        <Content id="projects" containerClassName='bg-[#F8F8F8]'>
             <SectionHeading>Projects</SectionHeading>
             <section className="flex flex-col gap-[32px] md:gap-[72px]">
                 {PROJECTS.map(({ name, ...values }, index) => (
