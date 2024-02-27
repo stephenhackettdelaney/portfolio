@@ -15,17 +15,14 @@ import {
     GitIcon,
 } from "@/assets/icons";
 
-type Values = {
-    title: string,
-    icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element
-}
+import { CardValues } from "@/types";
 
-export default function TechnicalKnowledge() {
+export default function TechnicalKnowledge(): ReactNode {
     return (
-        <Content className="md:h-screen">
+        <Content containerClassName="md:h-screen">
             <SectionHeading>Technical Knowledge</SectionHeading>
             <Grid>
-                {TECHNICAL_KNOWLEDGE.map((values: Values, index: number): ReactNode => (
+                {TECHNICAL_KNOWLEDGE.map((values: CardValues, index: number): ReactNode => (
                     <Card key={index} className="border-zinc-300" {...values} />
                 ))}
             </Grid>

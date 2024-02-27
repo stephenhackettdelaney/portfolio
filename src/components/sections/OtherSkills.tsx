@@ -1,4 +1,4 @@
-import type { ReactNode, SVGProps } from "react";
+import type { ReactNode } from "react";
 import { Aleo } from "next/font/google";
 
 import { Content, SectionHeading, Grid } from "..";
@@ -18,20 +18,17 @@ import {
     CatsIcon,
 } from "@/assets/icons";
 
+import { CardValues } from "@/types";
+
 const aleo = Aleo({ subsets: ['latin'] })
 
-type Values = {
-    title: string,
-    icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element
-}
-
-export default function OtherSkills() {
+export default function OtherSkills(): ReactNode {
     return (
-        <Content className="bg-[#474747]" gap="gap-y-[80px] md:gap-y-[120px]">
+        <Content containerClassName="bg-[#474747]" contentClassName="gap-y-[80px] md:gap-y-[120px]">
             <section className="flex flex-col gap-9">
                 <SectionHeading className="text-[#F2F2F2]">Soft Skills</SectionHeading>
                 <Grid>
-                    {SOFT_SKILLS.map((values: Values, index: number): ReactNode => (
+                    {SOFT_SKILLS.map((values: CardValues, index: number): ReactNode => (
                         <Card key={index} className="bg-transparent text-[#F2F2F2]" {...values} />
                     ))}
                 </Grid>
@@ -39,7 +36,7 @@ export default function OtherSkills() {
             <section className="flex flex-col gap-9">
                 <SectionHeading className="text-[#F2F2F2]">Interests</SectionHeading>
                 <Grid>
-                    {INTERESTS.map((values: Values, index: number): ReactNode => (
+                    {INTERESTS.map((values: CardValues, index: number): ReactNode => (
                         <Card key={index} className="bg-transparent text-[#F2F2F2]" {...values} />
                     ))}
                 </Grid>
@@ -48,7 +45,7 @@ export default function OtherSkills() {
     )
 }
 
-function Card({ className, title, icon: Icon }: { className?: string } & Values) {
+function Card({ className, title, icon: Icon }: { className?: string } & CardValues) {
     return (
         <div className={`flex flex-col gap-y-4 justify-center items-center  border-2 py-6 w-full ${className}`}>
             <Icon />

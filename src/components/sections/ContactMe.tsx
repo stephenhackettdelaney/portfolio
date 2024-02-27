@@ -12,7 +12,7 @@ const dm_sans = DM_Sans({
 
 export default function ContactMe(): ReactNode {
     return (
-        <Content className='h-screen'>
+        <Content containerClassName='h-screen'>
             <SectionHeading>Contact Me</SectionHeading>
             <section className="flex gap-4">
                 {CONTACT_LINKS.map(({ className, href, icon: Icon }, index: number) => (

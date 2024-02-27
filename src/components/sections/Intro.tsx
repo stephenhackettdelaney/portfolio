@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import Link from "next/link"
 import { Besley, DM_Sans } from "next/font/google"
 
@@ -15,10 +16,9 @@ const dm_sans = DM_Sans({
     subsets: ['latin'],
 })
 
-// Todo: fix this section - gap-9 between title and content an issue in spacing.
-export default function Intro() {
+export default function Intro(): ReactNode {
     return (
-        <Content className="h-screen flex flex-col items-center w-full" gap="gap-0">
+        <Content containerClassName="h-screen flex flex-col items-center w-full" contentClassName="gap-0">
             <div>
                 <h1 className={`${besley.className} font-sans font-bold text-2xl sm:text-4xl`}>Stephen Hackett-Delaney</h1>
                 <p className={`${dm_sans.className} text-xs sm:text-sm text-[#707070] mt-2`}>Permanent resident, Vancouver, BC</p>
@@ -35,6 +35,5 @@ export default function Intro() {
                 <div className="w-full h-full bg-black -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
             </Link>
         </Content>
-
     )
 }
