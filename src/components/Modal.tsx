@@ -3,11 +3,12 @@ import React, { useEffect } from 'react'
 import type { ReactNode } from 'react'
 
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { Besley, DM_Sans, Aleo, DM_Serif_Text } from 'next/font/google'
 import cns from 'classnames'
+
+import { AnimatedButton, AnimatedLink } from '.'
 
 const besley = Besley({
     subsets: ['latin'],
@@ -63,26 +64,8 @@ export function Modal({ selectedProject, closeModal }: { selectedProject: string
                                     )
                                 })}
                                 <footer className='flex justify-end gap-4'>
-                                    {PROJECTS[`${selectedProject}`]?.href ? (
-                                        <Link
-                                            href={PROJECTS[`${selectedProject}`]?.href!} target='_blank'
-                                            className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
-                                        >
-                                            <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-blue-500 transition duration-500 hover:border-blue-600 flex justify-center items-center gap-1">
-                                                <h2 className={`${dm_sans.className} text-sm text-blue-600 group-hover:text-black transition-color duration-500`}>Visit site</h2>
-                                            </div>
-                                            <div className="w-full h-full bg-blue-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
-                                        </Link>
-                                    ) : null}
-                                    <button
-                                        onClick={closeModal}
-                                        className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
-                                    >
-                                        <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-rose-500 transition duration-500 hover:border-rose-600 flex justify-center items-center gap-1">
-                                            <h2 className={`${dm_sans.className} text-sm text-[#F25555] group-hover:text-black transition-color duration-500`}>close</h2>
-                                        </div>
-                                        <div className="w-full h-full bg-rose-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
-                                    </button>
+                                    {PROJECTS[`${selectedProject}`]?.href ? <AnimatedLink className='link' href={PROJECTS[`${selectedProject}`]?.href!} /> : null}
+                                    <AnimatedButton className='danger' onClick={closeModal} verb="close" />
                                 </footer>
                             </ProjectContainer>
                         </div>
@@ -102,19 +85,9 @@ function CompanyDetails({ title, description, overview, href, closeModal }: { ti
                     <h2 className={`${dm_serif_text.className} text-2xl md:text-3xl`}>{title}</h2>
                     <p className={`${dm_sans.className} text-sm text-[#555555] leading-[24px] pr-12`}>{description}</p>
                 </div>
-                <button className={`${dm_sans.className} text-sm text-[#F25555] w-14 h-14 rounded-full hover:underline`} onClick={closeModal}>Close</button>
+                <button className={`${dm_sans.className} text-sm text-[#F25555] w-14 h-14 rounded-full hover-hover:hover:underline`} onClick={closeModal}>Close</button>
             </div>
-            {href && (
-                <Link
-                    href={href} target='_blank'
-                    className="group relative h-10 w-28 pointer-events-auto overflow-hidden"
-                >
-                    <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-blue-500 transition duration-500 hover:border-blue-600 flex justify-center items-center gap-1">
-                        <h2 className={`${dm_sans.className} text-sm text-blue-600 group-hover:text-black transition-color duration-500`}>Visit site</h2>
-                    </div>
-                    <div className="w-full h-full bg-blue-100 -translate-y-[102%] transform transition duration-300 lg:group-hover:translate-y-[0%]" />
-                </Link>
-            )}
+            {href && <AnimatedLink className='link' href={href} />}
             <section className='flex flex-col gap-2 border-t-[12px] border-2 border-zinc-200 bg-white p-5 pt-3 rounded my-8'>
                 <h2 className={`${besley.className} text-lg`}>Overview & Achievements</h2>
                 {overview.map(({ description, achievements }, index: number) => {

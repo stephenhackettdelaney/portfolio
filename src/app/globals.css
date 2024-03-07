@@ -3,3 +3,90 @@
 @tailwind utilities;
 
 html, body { scroll-behavior: smooth; }
+
+
+button.animated-button, a.animated-link {
+    @apply relative h-10 w-28 pointer-events-auto border-2 overflow-hidden;
+}
+
+button.animated-button > div, a.animated-link > div {
+    @apply absolute top-0 right-0 -left-0 bottom-0 z-10 flex justify-center items-center;
+}
+
+button.animated-button > div > h2, a.animated-link > div > h2 {
+    @apply text-sm;
+}
+
+button.animated-button > section, a.animated-link > section {
+    @apply w-full h-full transition duration-300 -translate-y-[102%];
+}
+
+a.animated-link-icon {
+    @apply relative h-12 w-12 pointer-events-auto overflow-hidden ;
+}
+
+a.animated-link-icon > div {
+    @apply absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-black flex justify-center items-center text-black;
+}
+
+a.animated-link-icon > div > svg {
+    @apply transition duration-500 w-10 h-10;
+}
+
+a.animated-link-icon > section {
+    @apply w-full h-full bg-black -translate-y-[102%] transform transition duration-300;
+}
+
+.danger {
+    @apply border-rose-500;
+}
+
+.link {
+    @apply border-blue-500;
+}
+
+button.danger > div > h2 {
+    @apply text-rose-500 ;
+}
+
+a.link > div > h2 {
+    @apply text-blue-700;
+}
+
+@media(hover:hover ){
+    button.animated-button > div,
+    a.animated-link > div {
+        @apply transition duration-500 ;
+    }
+
+    button.animated-button:hover > div > h2,
+    a.animated-link:hover > div > h2 {
+        @apply transition duration-500;
+    }
+
+    button.animated-button:hover > section,
+    a.animated-link:hover > section,
+    a.animated-link-icon:hover > section  {
+        @apply translate-y-[0%];
+    }
+
+    button.danger > section {
+        @apply bg-rose-100;
+    }
+
+    button.animated-button:hover > div > h2 {
+        @apply text-rose-900;
+    }
+
+    a.link > section {
+        @apply bg-blue-100;
+    }
+
+    a.animated-link:hover > div > h2 {
+        @apply text-blue-900;
+    }
+
+    a.animated-link-icon:hover > div > svg {
+        @apply text-white;
+    }
+}

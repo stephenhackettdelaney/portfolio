@@ -35,12 +35,12 @@ type ContactLinks = {
 
 const CONTACT_LINKS: ContactLinks[] = [
     {
-        className: "hover:text-sky-600",
+        className: "hover-hover:hover:text-sky-600",
         href: "https://www.linkedin.com/in/stephen-hd/",
         icon: LinkedInIcon
     },
     {
-        className: "hover:text-rose-500",
+        className: "hover-hover:hover:text-rose-500",
         href: "mailto:stephen@comediadesign.com",
         icon: EmailIcon
     },

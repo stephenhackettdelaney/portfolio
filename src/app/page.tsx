@@ -9,6 +9,7 @@ import {
   TechnicalKnowledge,
   OtherSkills,
   ContactMe,
+  // BreakPoints,
 } from "@/components";
 
 export default function Home(): ReactNode {
@@ -16,6 +17,7 @@ export default function Home(): ReactNode {
 
   return (
     <main className='scroll-smooth'>
+      {/* <BreakPoints /> */}
       <Intro />
       <Projects setSelectedProject={setSelectedProject} />
       <Modal
