@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { SeeMoreArrow } from "@/assets/icons"
-import { sendGTMEvent } from "@next/third-parties/google"
+import { sendGTMEvent, sendGAEvent } from "@next/third-parties/google"
 
 type AnimatedLinkIconProps = {
     className?: string,
@@ -19,7 +19,10 @@ export default function AnimatedLinkIcon({ className, href }: AnimatedLinkIconPr
         <Link
             href={href}
             className={`group relative h-12 w-12 pointer-events-auto overflow-hidden ${className}`}
-            onClick={() => sendGTMEvent(data)}
+            // onClick={() => sendGTMEvent(data)}
+            // onClick={() => sendGTMEvent('event', 'buttonClicked', { value: 'xyz' })}
+            onClick={() => sendGAEvent('dlv-', 'scroll-link', { value: href })}
+
         >
             <div className="absolute top-0 right-0 -left-0 bottom-0 z-10 border-2 border-black flex justify-center items-center">
                 <SeeMoreArrow className='hover-hover:group-hover:text-white transition-color duration-500 w-10 h-10' />

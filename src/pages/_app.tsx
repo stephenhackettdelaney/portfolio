@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Script from "next/script";
 import "./globals.css";
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -21,6 +21,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 })(window,document,'script','dataLayer','GTM-KZ36SLVQ')` }}>
             </Script>
             <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTMI!} />
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GTMI!} />
             <Script
                 strategy="lazyOnload"
                 src="https://www.stephenhd.com/script.js"
