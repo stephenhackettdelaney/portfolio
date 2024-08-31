@@ -69,7 +69,7 @@ export function Modal({ selectedProject, closeModal }: { selectedProject: string
                                 </footer>
                             </ProjectContainer>
                         </div>
-                        <button onClick={closeModal} className='absolute top-0 right-0 bottom-0 left-0 cursor-zoom-out' />
+                        <button id="close-modal" onClick={closeModal} className='absolute top-0 right-0 bottom-0 left-0 cursor-zoom-out' />
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -16,12 +16,23 @@ const dm_serif_text = DM_Serif_Text({
 const aleo = Aleo({ subsets: ['latin'] })
 
 export default function Projects({ setSelectedProject }: { setSelectedProject: Dispatch<SetStateAction<string>> }) {
+
+    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        const clickedElement = event.target as HTMLElement;
+        const closestButton = clickedElement.closest('button');
+        console.log(closestButton?.id); // This should log the button's id
+        if (closestButton) {
+            setSelectedProject(closestButton.id);
+        }
+    }
+
     return (
         <Content id="projects" containerClassName='bg-[#F8F8F8]'>
             <SectionHeading>Projects</SectionHeading>
             <section className="flex flex-col gap-[32px] md:gap-[72px]">
                 {PROJECTS.map(({ name, ...values }, index) => (
-                    <button id={name} key={index} className='hover:cursor-zoom-in' onClick={() => setSelectedProject(name)}>
+                    <button id={name} key={index} className='hover:cursor-zoom-in' onClick={handleClick}>
+                        <h2 className='hidden'>{name}</h2>
                         <Project {...values} />
                     </button>
                 ))}
