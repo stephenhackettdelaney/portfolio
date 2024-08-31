@@ -62,7 +62,7 @@ function Project({ image, alt = "", stack, ...rest }:
 
 function Card({ children }: { children: ReactNode }): ReactNode {
     return (
-        <div className="relative grid sm:grid-cols-[2fr,1fr] bg-white shadow-lg">
+        <div className="relative grid sm:grid-cols-[2fr,1fr] bg-white shadow-lg pointer-events-none">
             {children}
         </div>
     )
